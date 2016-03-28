@@ -18,6 +18,7 @@
   "homepage": "https://github.com/nxtlvlgg/loopback-destroy-on-delete-mixin#readme",
   "mixinName": "DestroyOnDelete",
   "dependencies": {
-    "async": "^2.0.0-rc.2"
+    "async": "^2.0.0-rc.2",
+    "xloop": "git://github.com/nxtlvlgg/xloop.git"
   }
 }

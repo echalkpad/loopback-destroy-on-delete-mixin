@@ -1,7 +1,7 @@
 var async = require("async");
 var loopback = require("loopback");
 var deleteHandlers = require("./delete-handlers");
-var reqCache = require("../../lib/req-cache");
+var reqCache = require("xloop").reqCache;
 var packageJSON = require("./package");
 
 
