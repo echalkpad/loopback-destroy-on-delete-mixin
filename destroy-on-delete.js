@@ -31,7 +31,14 @@ module.exports = function(Model) {
 function destroyOnDelete(Model, ctx) {
     return function(finalCb) {
 
+        // Add relations from static config
         var relations = Model.settings.relations;
+        // add dynamic relations
+        for(var key in Model.relations) {
+            if(!relations[key]) {
+                relations[key] = Model.relations[key];
+            }
+        }
 
         // Create query to retrieve the objectId(s) of the instances we are deleting
         var query = {
