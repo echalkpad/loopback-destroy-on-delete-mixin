@@ -47,7 +47,7 @@ function destroyOnDelete(Model, ctx) {
             if (err) return finalCb(err);
 
             async.each(instances, function (instance, instanceCb) {
-                async.forEachOf(relations, function (relationData, relationName, relationCb) {
+                async.forEachOf(Model.relations, function (relationData, relationName, relationCb) {
 
                     // check for wet or dry DestroyOnDelete setting on relations
                     if (!Model.relations[relationName].options[packageJSON.mixinName]
