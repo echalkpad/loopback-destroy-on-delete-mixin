@@ -31,15 +31,6 @@ module.exports = function(Model) {
 function destroyOnDelete(Model, ctx) {
     return function(finalCb) {
 
-        // Add relations from static config
-        var relations = Model.settings.relations;
-        // add dynamic relations
-        for(var key in Model.relations) {
-            if(!relations[key]) {
-                relations[key] = Model.relations[key];
-            }
-        }
-
         // Create query to retrieve the objectId(s) of the instances we are deleting
         var query = {
             where: ctx.where,
@@ -58,7 +49,10 @@ function destroyOnDelete(Model, ctx) {
             async.each(instances, function (instance, instanceCb) {
                 async.forEachOf(relations, function (relationData, relationName, relationCb) {
 
-                    if (!relationData[packageJSON.mixinName]) {
+                    // check for wet or dry DestroyOnDelete setting on relations
+                    if (!Model.relations[relationName].options[packageJSON.mixinName]
+                        && Model.settings.relations[relationName]
+                        && !Model.settings.relations[relationName][packageJSON.mixinName]) {
                         return relationCb();
                     }
 
