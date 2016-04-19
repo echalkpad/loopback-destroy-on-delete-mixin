@@ -4,10 +4,10 @@ function hasManyHandler(ctx, instance, relationData, relationName, finalCb) {
 
     var relation = instance[relationName];
     if(!relation) {
-        return relationCb();
+        return finalCb();
     }
 
-    relation.destroyAll(finalCb);
+    return relation.destroyAll(finalCb);
 }
 
 function belongsToHandler(ctx, instance, relationData, relationName, finalCb) {
